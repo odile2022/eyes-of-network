@@ -1,0 +1,8 @@
+## ansible host file
+
+[ROUTERS]
+R1 ansible_host=192.168.8.1
+
+[ROUTERS:vars]
+ansible_user=mint
+ansible_ssh_pass=mint 
