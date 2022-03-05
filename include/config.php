@@ -42,6 +42,7 @@ $database_ged="ged";
 $database_lilac="lilac";
 $database_nagios="nagiosbp";
 $database_notifier="notifier";
+$database_ri="ridb";
 
 // ###################################################
 // # EyesOfNetwork

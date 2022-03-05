@@ -26,7 +26,7 @@
 <footer class="footer navbar navbar-default navbar-fixed-bottom">
 	<div class="container">
 		<div class="text-center">
-			<a href="http://www.eyesofnetwork.com" target="_blank">EyesOfNetwork</a>
+			<a href="http://www.eyesofnetwork.com" target="_blank">Outils de Supervision Réseau</a>
 			<?php echo getLabel("label.footer.message"); ?>
 		</div>
 	</div>
@@ -77,6 +77,9 @@
 		include($module_php);
 	} 
 }
+	if(isset($extraFooterTags)){
+		echo $extraFooterTags;
+	}
 ?>
 
 </body>

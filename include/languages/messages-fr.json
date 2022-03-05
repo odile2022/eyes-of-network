@@ -1,4 +1,11 @@
 {
+	"menu.tab.resolve_panne": "Résolution d'incidents",
+	"menu.link.resolve_panne": "Résolution d'incidents",
+	"label.home_resolve.expert": "Notre Système Expert",
+	"label.home_resolve.formulaire": "Formulaire de diagnostic",
+	"label.home_resolve.page01": "Résolution de panne - Page 01",
+	"label.home_resolve.page02": "Résolution de panne - Page 02",
+	"label.home_resolve.page03": "Résolution de panne - Page 03",
 	"action.ack": "Acquitter",
 	"action.add": "Ajouter",
 	"action.add_new_app": "Ajouter nouvelle application",

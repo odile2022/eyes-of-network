@@ -91,6 +91,9 @@ if(file_exists($path_eonweb.$path_logo_navbar_custom)) { $path_logo_navbar=$path
 			$verif = 1;
 		}
 	}
+	if(isset($extraHeaderTags)){
+		echo $extraHeaderTags;
+	}
 	?>
 </head>
 

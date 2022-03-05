@@ -367,6 +367,33 @@
         },
         {
             "id":"7",
+            "name":"menu.link.resolve_panne",
+            "icon":"fa fa-question-circle",
+            "link":[
+                {
+                    "name":"Pannes",
+                    "url":"/module/incident/pannes.php?q=active",
+                    "target":"main"
+                },
+                {
+                    "name":"Fichiers de configuration",
+                    "url":"/module/incident/fichiers_config.php?q=active",
+                    "target":"main"
+                },
+                {
+                    "name":"Equipements",
+                    "url":"/module/incident/equipements.php?q=active",
+                    "target":"main"
+                },
+                {
+                    "name":"Groupes d'equipements",
+                    "url":"/module/incident/groupes_equipements.php?q=active",
+                    "target":"main"
+                }
+            ]
+        },
+        {
+            "id":"8",
             "name":"menu.tab.help",
             "icon":"fa fa-question-circle",
             "link":[

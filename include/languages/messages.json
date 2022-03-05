@@ -1,4 +1,8 @@
 {
+	"menu.tab.resolve_panne": "Resolution of incidents",
+	"menu.link.resolve_panne": "Resolution of incidents",
+	"label.home_resolve.expert": "Our Expert System",
+	"label.home_resolve.formulaire": "Form diagnosis",
 	"action.ack": "Acknowledge",
 	"action.add": "Add",
 	"action.add_new_app": "Add new application",
