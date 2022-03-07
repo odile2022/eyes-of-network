@@ -1,0 +1,24 @@
+
+sudo systemctl stop mariadb
+sudo mysqld_safe --skip-grant-tables --skip-networking &
+mysql -u root
+FLUSH PRIVILEGES;
+SET PASSWORD FOR 'root'@'localhost' = PASSWORD('NEW_PASSWORD');
+sudo kill `/var/run/mariadb/mariadb.pid`
+sudo systemctl start mariadb
+mysql -u root -p
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
