@@ -1,5 +1,6 @@
 <?php
 
+
 abstract class CrudDB {
    
     public abstract function tableName();
@@ -12,7 +13,6 @@ abstract class CrudDB {
             $result[] = $this->rowToArray($row);
         }
         return $result;
-
     }
 
     public function find($id) {
@@ -25,22 +25,13 @@ abstract class CrudDB {
         }
     }
 
-/*
     public function insert($item) {
-        $cols = $this->tableColumns();
-        $bind = [];
         $db = $this->getPdo();
-        $stmt = $this->executeQuery(
+        $this->executeQuery(
             "INSERT INTO "
-                .$this->tableName() ."(`adresse_ip`, `ssh_user`, `ssh_password`, `nom`, `description`) "
-                ."VALUES (?, ?, ?, ?, ?);",
-            [
-                $item['adresse_ip'],
-                $item['ssh_user'],
-                $item['ssh_password'],
-                $item['nom'],
-                $item['description'],
-            ],
+                .$this->tableName() ."(".$this->updateAssociationList().") "
+                ."VALUES (".$this->valuesPlaceholderList().");",
+                $this->valuesFromItem($item, false),
             $db
         );
         $item['id'] = $db->lastInsertId();
@@ -50,22 +41,14 @@ abstract class CrudDB {
     public function update($item) {
         $db = $this->getPdo();
         $stmt = $this->executeQuery(
-            "update `ridb`.`ri_equipement` SET "
-                ."`adresse_ip`=?, `ssh_user`=?, `ssh_password`=?, `nom`=?, `description`=? "
-                ."WHERE `id`=?;",
-            [
-                $item['adresse_ip'],
-                $item['ssh_user'],
-                $item['ssh_password'],
-                $item['nom'],
-                $item['description'],
-                $item['id'],
-            ],
+            "update ".$this->tableName()." SET "
+                .$this->updateColumnsList()
+                . "WHERE `id`=?;",
+            $this->valuesFromItem($item, true),
             $db
         );
         return $item; 
     }
-//*/
 
     public function delete($id) {
         $this->executeQuery("DELETE FROM ".$this->tableName()." where id=?;", $id);
@@ -97,8 +80,48 @@ abstract class CrudDB {
             $value = $cols[$i];
             $data[$value] = $row[$value];
         }
+        $data['id'] = $row['id'];
         return $data;
-        return [];
+    }
+
+    protected function valuesFromItem($item, $withId) {
+        $cols = $this->tableColumns();
+        $data = [];
+        for ($i=0; $i<count($cols); $i++) {
+            $col = $cols[$i];
+            $data[] = $item[$col];
+        }
+        if($withId){
+            $data[] = $item['id'];
+        }
+        return $data;
+    }
+
+    protected function updateAssociationList(){
+        $cols = $this->tableColumns();
+        $str = "`".$cols[0]."`";
+        for($i=1; $i<count($cols); $i++){
+            $str .= ", `".$cols[$i]."`";
+        }
+        return $str;
+    }
+
+    protected function valuesPlaceholderList(){
+        $cols = $this->tableColumns();
+        $str = "?";
+        for($i=1; $i<count($cols); $i++){
+            $str .= ", ?";
+        }
+        return $str;
+    }
+
+    protected function updateColumnsList(){
+        $cols = $this->tableColumns();
+        $str = "`".$cols[0]."`=?";
+        for($i=1; $i<count($cols); $i++){
+            $str .= ", `".$cols[$i]."`=?";
+        }
+        return $str;
     }
 
     protected function getPdo() {
