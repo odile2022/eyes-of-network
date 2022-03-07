@@ -1,6 +1,6 @@
 <?php
 
-/*$extraHeaderTags = <<<EOF
+$extraHeaderTags = <<<EOF
 
 <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
 <style>
@@ -491,28 +491,4 @@ $(document).ready(function(){
 </script>
 EOF;
 ?>
-<?php include("../../footer.php"); ?>*/
-
-
-require_once("./DB.php");
-include("../../header.php");
-include("../../side.php");
-include("ged_functions.php");
-
-
-?>
-
-<div id="page-wrapper">
-	<div class="row">
-		<div class="col-lg-12">
-			<h1 class="page-header">Pannes</h1>
-			Here >> <?php 
-			echo json_encode(DB::panne()->all());//*/ 
-			echo "<br/><br/>";
-			echo json_encode(DB::panne()->find(2));
-			?>
-		</div>
-	</div> 
-</div>
-
 <?php include("../../footer.php"); ?>

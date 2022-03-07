@@ -6,6 +6,15 @@ abstract class CrudDB {
     public abstract function tableName();
     public abstract function tableColumns();
 
+    public function tableData() {
+        $stmt = $this->executeQuery("SELECT * FROM ".$this->tableName().";");
+        $result =[];
+        while ($row = $stmt->fetch()) {
+            $result[] = $this->rowToTableData($row);
+        }
+        return $result;
+    }
+
     public function all() {
         $stmt = $this->executeQuery("SELECT * FROM ".$this->tableName().";");
         $result =[];
@@ -81,6 +90,16 @@ abstract class CrudDB {
             $data[$value] = $row[$value];
         }
         $data['id'] = $row['id'];
+        return $data;
+    }
+
+    protected function rowToTableData($row) {
+        $cols = $this->tableColumns();
+        $data = ["<span class='custom-checkbox'><input type='checkbox' name='options[]' value='1'></span>"];
+        for ($i=0; $i<count($cols); $i++) {
+            $value = $cols[$i];
+            $data[] = $row[$value];
+        }
         return $data;
     }
 
