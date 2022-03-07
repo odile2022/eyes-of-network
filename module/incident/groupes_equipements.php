@@ -1,5 +1,5 @@
 <?php
-/*
+
 #########################################
 #
 # Copyright (C) 2017 EyesOfNetwork Team
@@ -18,9 +18,9 @@
 # GNU General Public License for more details.
 #
 #########################################
-*/
 
-include("../../header.php");
+
+/*include("../../header.php");
 include("../../side.php");
 include("ged_functions.php");
 
@@ -97,4 +97,29 @@ $(document).ready(function() {
 </script>
 EOF;
 ?>
+<?php include("../../footer.php"); ?>*/
+
+
+
+require_once("./DB.php");
+include("../../header.php");
+include("../../side.php");
+include("ged_functions.php");
+
+
+?>
+
+<div id="page-wrapper">
+	<div class="row">
+		<div class="col-lg-12">
+			<h1 class="page-header">Groupes d'équipement</h1>
+			Here >> <?php 
+			echo json_encode(DB::typeEquipement()->all());//*/ 
+			echo "<br/><br/>";
+			echo json_encode(DB::typeEquipement()->find(2));
+			?>
+		</div>
+	</div> 
+</div>
+
 <?php include("../../footer.php"); ?>

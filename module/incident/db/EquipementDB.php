@@ -1,6 +1,4 @@
 <?php
-require_once "./CrudDB.php";
-
 
 class EquipementDB extends CrudDB {
    
@@ -15,11 +13,7 @@ class EquipementDB extends CrudDB {
              'ssh_password',
              'nom',
              'description',
-             'id',
+             // 'id',
          ];
      }
-
-    public static function request(){
-        return new EquipementDB;
-    }
 }
