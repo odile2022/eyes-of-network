@@ -95,11 +95,15 @@ abstract class CrudDB {
 
     protected function rowToTableData($row) {
         $cols = $this->tableColumns();
-        $data = ["<span class='custom-checkbox'><input type='checkbox' name='options[]' value='1'></span>"];
+        $data = ["<span class='custom-checkbox row_data_input'><input type='hidden' id='row_data_".$row['id']."' name='id' value='".json_encode($this->rowToArray($row))."'><input type='checkbox' name='options[]' value='1'></span>"];
         for ($i=0; $i<count($cols); $i++) {
             $value = $cols[$i];
             $data[] = $row[$value];
         }
+        //$data[] = "<a href='#editEmployeeModal' class='edit' data-toggle='modal'><i class='material-icons' data-toggle='tooltip' title='Edit'>&#xE254;</i></a>"
+        //            ."<a href='#deleteEmployeeModal' class='delete' data-toggle='modal'><i class='material-icons' data-toggle='tooltip' title='Delete'>&#xE872;</i></a>";
+        $data[] = "<i onclick='editItem(this, ".$row['id'].");' class='edit material-icons' data-toggle='tooltip' title='Edit'>&#xE254;</i>"
+        ."<i onclick='deleteItem(this, ".$row['id'].");' class='delete material-icons' data-toggle='tooltip' title='Delete'>&#xE872;</i>";
         return $data;
     }
 

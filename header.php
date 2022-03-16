@@ -45,6 +45,8 @@ if(file_exists($path_eonweb.$path_logo_navbar_custom)) { $path_logo_navbar=$path
 	<meta name="author" content="EyesOfNetwork Team">
 	
 	<link rel="icon" type="image/png" href="<?php echo $path_logo_favicon; ?>">
+
+	<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
 	
 	<!-- Bootstrap Core CSS -->
 	<link href="/bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
