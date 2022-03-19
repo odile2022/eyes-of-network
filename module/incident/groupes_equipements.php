@@ -10,7 +10,7 @@ require_once("./incident_header.php");
 				<div class="row">
 					<div class="col" style="padding:10px;">
 						<a onclick="deleteItem()" class="btn btn-danger" data-toggle="modal"><i class="material-icons">&#xE15C;</i> <span>Delete</span></a>						
-						<a href="#addEmployeeModal" class="pull-right btn btn-success" data-toggle="modal"><i class="material-icons">&#xE147;</i> <span>Add New Employee</span></a>
+						<a href="#addEmployeeModal" class="pull-right btn btn-success" data-toggle="modal"><i class="material-icons">&#xE147;</i> <span>Ajout Nouveau Groupe</span></a>
 					</div>
 				</div>
 			</div>
