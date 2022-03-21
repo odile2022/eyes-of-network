@@ -32,13 +32,27 @@ require_once("./incident_header.php");
 							<h4 class="modal-title">Ajout Groupe d'equippement</h4>
 						</div>
 						<div class="modal-body">					
-							<div class="form-group">
-								<label>Nom</label>
-								<input type="text" class="form-control" name='nom' required>
-							</div>
-							<div class="form-group">
-								<label>Nom fichier</label>
-								<input type="text" class="form-control" name='chemin_fichier' required>
+							<ul class="nav nav-tabs">
+								<li class="active"><a data-toggle="tab" href="#home1">Formulaire</a></li>
+								<li><a data-toggle="tab" href="#menu11">Template de commandes</a></li>
+							</ul>
+
+							<div class="tab-content">
+								<div id="home1" class="tab-pane fade in active">
+									<div class="form-group">
+										<label>Nom</label>
+										<input type="text" class="form-control" name='nom' required>
+									</div>
+									<div class="form-group">
+										<label>Fabriquant</label>
+										<input type="text" class="form-control" name='fabriquant' required>
+									</div>
+								</div>
+								<div id="menu11" class="tab-pane fade">
+									<div class="form-group">
+										<textarea class="form-control" name="template_commandes" rows="10" cols="50"></textarea>
+									</div>	
+								</div>
 							</div>
 						</div>
 						<div class="modal-footer">
@@ -60,14 +74,28 @@ require_once("./incident_header.php");
 						</div>
 						<div class="modal-body">					
 							<input type="hidden" name='id'>
-							<div class="form-group">
-								<label>Nom</label>
-								<input type="text" class="form-control" name='nom' required>
+							<ul class="nav nav-tabs">
+								<li class="active"><a data-toggle="tab" href="#home">Formulaire</a></li>
+								<li><a data-toggle="tab" href="#menu1">Template de commandes</a></li>
+							</ul>
+
+							<div class="tab-content">
+								<div id="home" class="tab-pane fade in active">
+									<div class="form-group">
+										<label>Nom</label>
+										<input type="text" class="form-control" name='nom' required>
+									</div>
+									<div class="form-group">
+										<label>Fabriquant</label>
+										<input type="text" class="form-control" name='fabriquant' required>
+									</div>
+								</div>
+								<div id="menu1" class="tab-pane fade">
+									<div class="form-group">
+										<textarea class="form-control" name="template_commandes" rows="10" cols="50"></textarea>
+									</div>	
+								</div>
 							</div>
-							<div class="form-group">
-								<label>Nom fichier</label>
-								<input type="text" class="form-control" name='chemin_fichier' required>
-							</div>				
 						</div>
 						<div class="modal-footer">
 							<input type="button" class="btn btn-default" data-dismiss="modal" value="Cancel">
@@ -115,7 +143,9 @@ $(document).ready(function() {
 		},{ 
 			title: "Nom"
 		},{ 
-			title: "Chemin du fichier"
+			title: "Fabriquant"
+		},{ 
+			title: "Template commandes"
 		},{ 
 			title: "Actions",
 			orderable: false
@@ -152,7 +182,8 @@ function editItem(btn, id){
 	console.log('edit: '+item);
 	$('#editEmployeeModal input[name=id]').val(id);
 	$('#editEmployeeModal input[name=nom]').val(item.nom);
-	$('#editEmployeeModal input[name=chemin_fichier]').val(item.chemin_fichier);
+	$('#editEmployeeModal input[name=fabriquant]').val(item.fabriquant);
+	$('#editEmployeeModal textarea[name=template_commandes]').val(item.template_commandes);
 	$('#editEmployeeModal').modal();
 }
 function deleteItem(btn, id){

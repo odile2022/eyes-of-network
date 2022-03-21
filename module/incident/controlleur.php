@@ -11,7 +11,8 @@ switch ($action) {
     case 'save_type_equipement':
         $data = [
             'nom' => $_POST['nom'],
-            'chemin_fichier' => $_POST['chemin_fichier'],
+            'fabriquant' => $_POST['fabriquant'],
+            'template_commandes' => $_POST['template_commandes'],
         ];
         //var_dump($data);
         //exit();
@@ -23,7 +24,8 @@ switch ($action) {
         $data = [
             'id' => $_POST['id'],
             'nom' => $_POST['nom'],
-            'chemin_fichier' => $_POST['chemin_fichier'],
+            'fabriquant' => $_POST['fabriquant'],
+            'template_commandes' => $_POST['template_commandes'],
         ];
         DB::typeEquipement()->update($data);
         header('Location: /module/incident/groupes_equipements.php');

@@ -9,7 +9,8 @@ class TypeEquipementDB extends CrudDB {
      public function tableColumns() {
         return [
              'nom',
-             'chemin_fichier',
+             'fabriquant',
+             'template_commandes',
              // 'id',
          ];
      }
