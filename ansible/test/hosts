@@ -1,7 +1,7 @@
 ## ansible host file
 
 [ROUTERS]
-R1 ansible_host=192.168.8.1
+R1 ansible_host=192.168.8.2
 
 [ROUTERS:vars]
 ansible_user=mint

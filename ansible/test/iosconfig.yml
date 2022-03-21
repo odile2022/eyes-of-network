@@ -4,9 +4,7 @@
   connection: local
 
   tasks:
-    - name: change Hostname R
+    - name: "change Hostname to {{ v_hostname }}"
       ios_config:
         lines:
-          - hostname  R-changed
-
-
+          - hostname  "{{ v_hostname }}"
