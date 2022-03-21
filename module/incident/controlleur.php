@@ -130,6 +130,35 @@ switch ($action) {
         header('Location: /module/incident/pannes.php');
         die();
         break;
+    case 'save_configuration':
+        $data = [
+            'log_execution' => $_POST['log_execution'],
+            'commentaire' => $_POST['commentaire'],
+        ];
+        //var_dump($data);
+        //exit();
+        DB::configuration()->insert($data);
+        header('Location: /module/incident/configurations.php');
+        die();
+        break;
+    case 'edit_configuration':
+        $data = [
+            'id' => $_POST['id'],
+            //'log_execution' => $_POST['log_execution'],
+            'commentaire' => $_POST['commentaire'],
+        ];
+        DB::configuration()->update($data);
+        header('Location: /module/incident/configurations.php');
+        die();
+        break;
+    case 'delete_configuration':
+        $ids = $_POST['id'];
+        foreach ($ids as $id) {
+            DB::configuration()->delete($id);
+        }
+        header('Location: /module/incident/configurations.php');
+        die();
+        break;
     default:
         # code...
         break;

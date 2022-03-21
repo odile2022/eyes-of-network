@@ -14,4 +14,20 @@ class ConfigurationDB extends CrudDB {
              // 'id',
          ];
      }
+ 
+     public function getUpdateColumns() {
+        return [
+             //'log_execution',
+             'commentaire',
+             // 'id',
+         ];
+     }
+ 
+     public function getInsertColumns() {
+        return [
+             'log_execution',
+             'commentaire',
+             // 'id',
+         ];
+     }
 }

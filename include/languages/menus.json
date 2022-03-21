@@ -389,6 +389,11 @@
                     "name":"Groupes d'equipements",
                     "url":"/module/incident/groupes_equipements.php?q=active",
                     "target":"main"
+                },
+                {
+                    "name":"Configuration",
+                    "url":"/module/incident/configurations.php?q=active",
+                    "target":"main"
                 }
             ]
         },

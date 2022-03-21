@@ -38,9 +38,9 @@ abstract class CrudDB {
         $db = $this->getPdo();
         $this->executeQuery(
             "INSERT INTO "
-                .$this->tableName() ."(".$this->updateAssociationList().") "
+                .$this->tableName() ."(".$this->insertAssociationList().") "
                 ."VALUES (".$this->valuesPlaceholderList().");",
-                $this->valuesFromItem($item, false),
+                $this->valuesFromItem($this->getInsertColumns(), $item, false),
             $db
         );
         $item['id'] = $db->lastInsertId();
@@ -53,7 +53,7 @@ abstract class CrudDB {
             "update ".$this->tableName()." SET "
                 .$this->updateColumnsList()
                 . "WHERE `id`=?;",
-            $this->valuesFromItem($item, true),
+            $this->valuesFromItem($this->getUpdateColumns(), $item, true),
             $db
         );
         return $item; 
@@ -107,8 +107,7 @@ abstract class CrudDB {
         return $data;
     }
 
-    protected function valuesFromItem($item, $withId) {
-        $cols = $this->tableColumns();
+    protected function valuesFromItem($cols, $item, $withId) {
         $data = [];
         for ($i=0; $i<count($cols); $i++) {
             $col = $cols[$i];
@@ -120,8 +119,8 @@ abstract class CrudDB {
         return $data;
     }
 
-    protected function updateAssociationList(){
-        $cols = $this->tableColumns();
+    protected function insertAssociationList(){
+        $cols = $this->getInsertColumns();
         $str = "`".$cols[0]."`";
         for($i=1; $i<count($cols); $i++){
             $str .= ", `".$cols[$i]."`";
@@ -130,7 +129,7 @@ abstract class CrudDB {
     }
 
     protected function valuesPlaceholderList(){
-        $cols = $this->tableColumns();
+        $cols = $this->getInsertColumns();
         $str = "?";
         for($i=1; $i<count($cols); $i++){
             $str .= ", ?";
@@ -139,7 +138,7 @@ abstract class CrudDB {
     }
 
     protected function updateColumnsList(){
-        $cols = $this->tableColumns();
+        $cols = $this->getUpdateColumns();
         $str = "`".$cols[0]."`=?";
         for($i=1; $i<count($cols); $i++){
             $str .= ", `".$cols[$i]."`=?";
@@ -153,6 +152,14 @@ abstract class CrudDB {
 		global $database_username;
 		global $database_password;
         return new PDO('mysql:host='.$database_host.';dbname='.$database_ri, $database_username, $database_password, array(PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION));
+    }
+    
+    protected function getUpdateColumns(){
+        return $this->tableColumns();
+    }
+    
+    protected function getInsertColumns(){
+        return $this->tableColumns();
     }
     
 }
