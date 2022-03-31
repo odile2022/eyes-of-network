@@ -1,0 +1,13 @@
+<rules>
+  <debug_rules>2</debug_rules>
+  <logrules_file>/srv/eyesofnetwork/notifier/log/notifier_rules.log</logrules_file>
+  <notifsent_file>/srv/eyesofnetwork/notifier/log/notifier_send.log</notifsent_file>
+  <host>
+	0:hermine_mail:*:-:*:*:*:1:email-host:0
+	0:hermine_mail:*,CE_2:-:*:*:*:10:email-host:0
+  </host>
+  <service>
+	0:*:*:*:OK:*:*:*:email-service:0
+	0:*,hermine_mail:*:*:*:*:*:10:email-service:0
+  </service>
+</rules>
