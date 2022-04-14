@@ -131,12 +131,7 @@ $extraHeaderTags = <<<EOF
 	.custom-checkbox {
 		position: relative;
 	}
-	.custom-checkbox input[type="checkbox"] {    
-		opacity: 0;
-		position: absolute;
-		margin: 5px 0 0 3px;
-		z-index: 9;
-	}
+	
 	.custom-checkbox label:before{
 		width: 18px;
 		height: 18px;
