@@ -9,7 +9,8 @@ class FichierConfigDB extends CrudDB {
      public function tableColumns() {
         return [
              'nom',
-             'chemin_fichier',
+             'commandes',
+             'variables',
              // 'id',
          ];
      }

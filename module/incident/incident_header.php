@@ -128,7 +128,7 @@ $extraHeaderTags = <<<EOF
         font-size: 13px;
     }    
 	/* Custom checkbox */
-	/*.custom-checkbox {
+	.custom-checkbox {
 		position: relative;
 	}
 	.custom-checkbox input[type="checkbox"] {    
@@ -179,9 +179,7 @@ $extraHeaderTags = <<<EOF
 		background: #ddd;
 	}
 	/* Modal styles */
-	/*.modal .modal-dialog {
-		max-width: 400px;
-	}
+
 	.modal .modal-header, .modal .modal-body, .modal .modal-footer {
 		padding: 20px 30px;
 	}
@@ -210,6 +208,21 @@ $extraHeaderTags = <<<EOF
 	.modal form label {
 		font-weight: normal;
 	}
+	.form-fieldset{
+		padding: 0.5em 1em;
+		margin: 0 2px;
+		border: 1px solid silver;
+	}
+	.form-fieldset legend{
+		width: auto;display: inline;border: none;margin-bottom: 0;
+	}
+	.form-fieldset legend .delete.material-icons{
+		color:#F44336; position: relative; top: 5px;
+	}
+	.form-fieldset legend .delete.material-icons:hover{
+		cursor: pointer;
+	}
+
 </style>
 EOF;
 

@@ -42,7 +42,8 @@ switch ($action) {
     case 'save_fichier_configuration':
         $data = [
             'nom' => $_POST['nom'],
-            'chemin_fichier' => $_POST['chemin_fichier'],
+            'commandes' => $_POST['commandes'],
+            'variables' => $_POST['variables'],
         ];
         //var_dump($data);
         //exit();
@@ -54,7 +55,8 @@ switch ($action) {
         $data = [
             'id' => $_POST['id'],
             'nom' => $_POST['nom'],
-            'chemin_fichier' => $_POST['chemin_fichier'],
+            'commandes' => $_POST['commandes'],
+            'variables' => $_POST['variables'],
         ];
         DB::fichierConfig()->update($data);
         header('Location: /module/incident/fichiers_config.php');
