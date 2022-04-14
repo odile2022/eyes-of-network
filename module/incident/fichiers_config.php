@@ -10,7 +10,7 @@ require_once("./incident_header.php");
 				<div class="row">
 					<div class="col" style="padding:10px;">
 						<a onclick="deleteItem()" class="btn btn-danger" data-toggle="modal"><i class="material-icons">&#xE15C;</i> <span>Delete</span></a>						
-						<a href="#addEmployeeModal" class="pull-right btn btn-success" data-toggle="modal"><i class="material-icons">&#xE147;</i> <span>Ajout Fichier Configuration</span></a>
+						<a href="#addFichierConfigModal" class="pull-right btn btn-success" data-toggle="modal"><i class="material-icons">&#xE147;</i> <span>Ajout Fichier Configuration</span></a>
 					</div>
 				</div>
 			</div>
@@ -22,7 +22,7 @@ require_once("./incident_header.php");
 		</div>
 	</div> 
 	<!-- Add Modal HTML -->
-	<div id="addEmployeeModal" class="modal fade">
+	<div id="addFichierConfigModal" class="modal fade">
 			<div class="modal-dialog">
 				<div class="modal-content">
 					<form class="taches_json_form" method="post" action="controlleur.php?action=save_fichier_configuration">
@@ -38,25 +38,25 @@ require_once("./incident_header.php");
 							</div>
 							<div class="form-group">
 								<label>Variables</label>
-								<input type="text" class="form-control" name='variables' required>
+								<input type="text" class="form-control" name='variables'>
 							</div>
 							<fieldset class="form-fieldset">
 								<legend>
 									<i class="delete material-icons" onclick="deleteFormFieldset(this);">&#xE872;</i>
-									Tache N° <span class="taskId">1</span>
+									Tache
 								</legend>
 								<div class="form-group">
 									<label>Libelle</label>
-									<input type="text" class="form-control nom_tache_input" name='nom_tache' value="tache 1" required>
+									<input type="text" class="form-control nom_tache_input" name='nom_tache' required>
 								</div>
 								<div class="form-group">
 									<label>Commandes</label>
-									<textarea class="form-control commandes_tache_input" name="commandes_tache" rows="3" cols="50">commandes tache 1</textarea>
+									<textarea class="form-control commandes_tache_input" name="commandes_tache" rows="3" cols="50"></textarea>
 								</div>
 							<fieldset>
 						</div>
 						<div class="modal-footer">
-							<input onclick="addFormFieldset(this);" type="button" class="btn btn-primary" style="float: left;" value="Ajouter une tache">
+							<input onclick="addFormFieldset('#addFichierConfigModal');" type="button" class="btn btn-primary" style="float: left;" value="Ajouter une tache">
 							<input type="button" class="btn btn-default" data-dismiss="modal" value="Cancel">
 							<input type="submit" class="btn btn-success" value="Add">
 						</div>
@@ -65,10 +65,10 @@ require_once("./incident_header.php");
 			</div>
 		</div>
 		<!-- Edit Modal HTML -->
-		<div id="editEmployeeModal" class="modal fade">
+		<div id="editFichierConfigModal" class="modal fade">
 			<div class="modal-dialog">
 				<div class="modal-content">
-					<form method="post" action="controlleur.php?action=edit_fichier_configuration">
+					<form class="taches_json_form" method="post" action="controlleur.php?action=edit_fichier_configuration">
 						<div class="modal-header">						
 							<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
 							<h4 class="modal-title">Mise a jour Groupe d'equippement</h4>
@@ -78,22 +78,24 @@ require_once("./incident_header.php");
 							<div class="form-group">
 								<label>Nom</label>
 								<input type="text" class="form-control" name='nom' required>
+								<input type="hidden" class="commandes" name='commandes' required>
 							</div>
 							<div class="form-group">
-								<label>Nom fichier</label>
-								<input type="text" class="form-control" name='commandes' required>
+								<label>Variables</label>
+								<input type="text" class="form-control" name='variables'>
 							</div>				
 						</div>
 						<div class="modal-footer">
+							<input onclick="addFormFieldset('#editFichierConfigModal');" type="button" class="btn btn-primary" style="float: left;" value="Ajouter une tache">
 							<input type="button" class="btn btn-default" data-dismiss="modal" value="Cancel">
-							<input type="submit" class="btn btn-info" value="Save">
+							<input type="submit" class="btn btn-success" value="Save">
 						</div>
 					</form>
 				</div>
 			</div>
 		</div>
 		<!-- Delete Modal HTML -->
-		<div id="deleteEmployeeModal" class="modal fade">
+		<div id="deleteFichierConfigModal" class="modal fade">
 			<div class="modal-dialog">
 				<div class="modal-content">
 				<form method="post" action="controlleur.php?action=delete_fichier_configuration">
@@ -166,11 +168,17 @@ $(document).ready(function() {
 
 function editItem(btn, id){
 	const item = JSON.parse($('#row_data_'+id).val());
-	console.log('edit: '+item);
-	$('#editEmployeeModal input[name=id]').val(id);
-	$('#editEmployeeModal input[name=nom]').val(item.nom);
-	$('#editEmployeeModal input[name=commandes]').val(item.commandes);
-	$('#editEmployeeModal').modal();
+	$('#editFichierConfigModal input[name=id]').val(id);
+	$('#editFichierConfigModal input[name=nom]').val(item.nom);
+	$('#editFichierConfigModal input[name=variables]').val(item.variables);
+	$('#editFichierConfigModal input[name=commandes]').val(item.commandes);
+	if(item.commandes){
+		const commandes = JSON.parse(item.commandes);
+		commandes.forEach(function (cmd, index) {
+			addFormFieldset('#editFichierConfigModal', cmd)                      
+		});
+	}
+	$('#editFichierConfigModal').modal();
 }
 function deleteItem(btn, id){
 	$('#deleteItemsContainer').empty();
@@ -190,29 +198,28 @@ function deleteItem(btn, id){
 			}
 		});
 	}
-	$('#deleteEmployeeModal').modal();
+	$('#deleteFichierConfigModal').modal();
 }
 
 function deleteFormFieldset(btn){
 	$(btn).closest('fieldset').remove();
 }
 
-function addFormFieldset(btn){
-	$(btn).closest('form').find('.modal-body').append(
-		'<fieldset class="form-fieldset"><legend><i class="delete material-icons" onclick="deleteFormFieldset(this);">&#xE872;</i>Tache N° <span class="taskId">1</span></legend><div class="form-group"><label>Libelle</label><input type="text" class="form-control nom_tache_input" name="nom_tache" value="tache 1" required></div><div class="form-group"><label>Commandes</label><textarea class="form-control commandes_tache_input" name="commandes_tache" rows="3" cols="50">commandes tache 1</textarea></div><fieldset>'
+function addFormFieldset(formDialogId, task={name:'', commands:''}){
+	$(formDialogId).find('.modal-body').append(
+		'<fieldset class="form-fieldset"><legend><i class="delete material-icons" onclick="deleteFormFieldset(this);">&#xE872;</i>Tache</legend><div class="form-group"><label>Libelle</label><input type="text" class="form-control nom_tache_input" name="nom_tache" value="'+task.name+'" required></div><div class="form-group"><label>Commandes</label><textarea class="form-control commandes_tache_input" name="commandes_tache" rows="3" cols="50">'+task.commands+'</textarea></div><fieldset>'
 	);
 }
 
 $('.taches_json_form').on('submit', function (e) {
     const tasks = [];
-    $('.form-fieldset').each((index, elm) => {
+    $(this).find('.form-fieldset').each((index, elm) => {
         tasks.push({
             'name': $(elm).find('.nom_tache_input').val(),
             'commands': $(elm).find('.commandes_tache_input').val(),
         });
     });
 	$(this).find('.commandes').val(JSON.stringify(tasks))
-    console.log('tasks', tasks);
 });
 </script>
 EOF;
