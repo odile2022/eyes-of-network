@@ -11,6 +11,7 @@ class FichierConfigDB extends CrudDB {
              'nom',
              'commandes',
              'variables',
+             'type_equipement',
              // 'id',
          ];
      }

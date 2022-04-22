@@ -13,6 +13,7 @@ class EquipementDB extends CrudDB {
              'ssh_password',
              'nom',
              'description',
+             'type_equipement',
              // 'id',
          ];
      }

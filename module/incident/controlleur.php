@@ -44,6 +44,7 @@ switch ($action) {
             'nom' => $_POST['nom'],
             'commandes' => $_POST['commandes'],
             'variables' => $_POST['variables'],
+            'type_equipement' => $_POST['type_equipement'],
         ];
         //var_dump($data);
         //exit();
@@ -57,6 +58,7 @@ switch ($action) {
             'nom' => $_POST['nom'],
             'commandes' => $_POST['commandes'],
             'variables' => $_POST['variables'],
+            'type_equipement' => $_POST['type_equipement'],
         ];
         DB::fichierConfig()->update($data);
         header('Location: /module/incident/fichiers_config.php');
@@ -77,6 +79,8 @@ switch ($action) {
             'ssh_password' => $_POST['ssh_password'],
             'nom' => $_POST['nom'],
             'description' => $_POST['description'],
+            'type_equipement' => $_POST['type_equipement'],
+
         ];
         //var_dump($data);
         //exit();
@@ -92,6 +96,7 @@ switch ($action) {
             'ssh_password' => $_POST['ssh_password'],
             'nom' => $_POST['nom'],
             'description' => $_POST['description'],
+            'type_equipement' => $_POST['type_equipement'],
         ];
         DB::equipement()->update($data);
         header('Location: /module/incident/equipements.php');

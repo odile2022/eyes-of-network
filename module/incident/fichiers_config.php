@@ -40,6 +40,10 @@ require_once("./incident_header.php");
 								<label>Variables</label>
 								<input type="text" class="form-control" name='variables'>
 							</div>
+							<div class="form-group">
+								<label>Type_equipement</label>
+								<input type="text" class="form-control" name='type_equipement' required>
+							</div>
 							<fieldset class="form-fieldset">
 								<legend>
 									<i class="delete material-icons" onclick="deleteFormFieldset(this);">&#xE872;</i>
@@ -83,7 +87,11 @@ require_once("./incident_header.php");
 							<div class="form-group">
 								<label>Variables</label>
 								<input type="text" class="form-control" name='variables'>
-							</div>				
+							</div>	
+							<div class="form-group">
+								<label>Type_equipement</label>
+								<input type="text" class="form-control" name='type_equipement' required>
+							</div>			
 						</div>
 						<div class="modal-footer">
 							<input onclick="addFormFieldset('#editFichierConfigModal');" type="button" class="btn btn-primary" style="float: left;" value="Ajouter une tache">
@@ -136,6 +144,8 @@ $(document).ready(function() {
 		},{ 
 			title: "variables"
 		},{ 
+			title: "Type_equipement"
+		},{ 
 			title: "Actions",
 			orderable: false
 		}]
@@ -170,6 +180,7 @@ function editItem(btn, id){
 	const item = JSON.parse($('#row_data_'+id).val());
 	$('#editFichierConfigModal input[name=id]').val(id);
 	$('#editFichierConfigModal input[name=nom]').val(item.nom);
+	$('#editFichierConfigModal input[name=type_equipement]').val(item.type_equipement);
 	$('#editFichierConfigModal input[name=variables]').val(item.variables);
 	$('#editFichierConfigModal input[name=commandes]').val(item.commandes);
 	if(item.commandes){

@@ -51,6 +51,10 @@ require_once("./incident_header.php");
 								<label>Description</label>
 								<input type="text" class="form-control" name='description' required>
 							</div>
+							<div class="form-group">
+								<label>Type_equipement</label>
+								<input type="text" class="form-control" name='description' required>
+							</div>
 						</div>
 						<div class="modal-footer">
 							<input type="button" class="btn btn-default" data-dismiss="modal" value="Cancel">
@@ -91,6 +95,10 @@ require_once("./incident_header.php");
 								<label>Description</label>
 								<input type="text" class="form-control" name='description' required>
 							</div>	
+							<div class="form-group">
+								<label>Type_equipement</label>
+								<input type="text" class="form-control" name='type_equipement' required>
+							</div>
 						</div>
 						<div class="modal-footer">
 							<input type="button" class="btn btn-default" data-dismiss="modal" value="Cancel">
@@ -146,6 +154,8 @@ $(document).ready(function() {
 		},{ 
 			title: "Description"
 		},{ 
+			title: "Type_equipement"
+		},{ 
 			title: "Actions",
 			orderable: false
 		}]
@@ -185,6 +195,7 @@ function editItem(btn, id){
 	$('#editEmployeeModal input[name=ssh_password]').val(item.ssh_password);
 	$('#editEmployeeModal input[name=nom]').val(item.nom);
 	$('#editEmployeeModal input[name=description]').val(item.description);
+	$('#editEmployeeModal input[name=type_equipement]').val(item.type_equipement);
 	$('#editEmployeeModal').modal();
 }
 function deleteItem(btn, id){
