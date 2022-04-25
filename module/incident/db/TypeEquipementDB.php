@@ -46,7 +46,7 @@ class TypeEquipementDB extends CrudDB {
                     $plabook .= $t.PHP_EOL;
                 }
     
-                return $tplHeader."tasks".PHP_EOL.$plabook;
+                return $tplHeader."tasks:".PHP_EOL.$plabook;
             }
 
         }

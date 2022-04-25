@@ -5,6 +5,7 @@ error_reporting(E_ALL);
 
 require_once("./../../include/config.php");
 require_once("./DB.php");
+require_once("./ansible/runner.php");
 
 $action = $_GET['action'];
 switch ($action) {
@@ -80,7 +81,6 @@ switch ($action) {
             'nom' => $_POST['nom'],
             'description' => $_POST['description'],
             'type_equipement' => $_POST['type_equipement'],
-
         ];
         //var_dump($data);
         //exit();
@@ -167,6 +167,35 @@ switch ($action) {
         }
         header('Location: /module/incident/configurations.php');
         die();
+        break;
+    case 'appliquer_config':
+        $id_fichier_config = $_POST['id_fichier_config'];
+        $id_equipements = json_decode($_POST['id_equipements']);
+        
+        if(isset($_POST['vars'])){
+            $vars = $_POST['vars'];
+        }else{
+            $vars = [];
+        }
+        $fichierConfig = DB::fichierConfig()->find($id_fichier_config);
+        $equipements = DB::equipement()->findMany($id_equipements);
+        $data = [
+            'id_fichier_config' => $id_fichier_config,
+            'id_equipements' => $id_equipements,
+            'vars' => $vars,
+        ];
+        if($fichierConfig && $equipements){
+            $typeEquip = DB::typeEquipement()->find($fichierConfig['type_equipement']);
+            $config = createAndRunAnsiblePlaybook($typeEquip, $fichierConfig, $equipements, $vars);
+            //echo json_encode($data);
+            echo json_encode($config);
+            
+            header('Location: /module/incident/configurations_details.php?id=0');
+            die();
+        }else{
+            require_once("./page_erreurs.php'");
+            die();
+        }
         break;
     default:
         # code...

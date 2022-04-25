@@ -34,6 +34,16 @@ abstract class CrudDB {
         }
     }
 
+    public function findMany($ids) {
+        $qMarks = str_repeat('?,', count($ids) - 1) . '?';
+        $stmt = $this->executeQuery("SELECT * FROM ".$this->tableName()."WHERE ID IN ($qMarks);", $ids);
+        $result =[];
+        while ($row = $stmt->fetch()) {
+            $result[] = $this->rowToArray($row);
+        }
+        return $result;
+    }
+
     public function insert($item) {
         $db = $this->getPdo();
         $this->executeQuery(

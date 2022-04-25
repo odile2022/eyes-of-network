@@ -29,7 +29,7 @@ class EquipementDB extends CrudDB {
      
 
      public function configTableData($id) {
-        $stmt = $this->executeQuery("SELECT * FROM ".$this->tableName().";");
+        $stmt = $this->executeQuery("SELECT * FROM ".$this->tableName()." WHERE type_equipement = ?;", $id);
         $result =[];
         while ($row = $stmt->fetch()) {
             $result[] = $this->rowToConfigTableData($row);
@@ -39,7 +39,7 @@ class EquipementDB extends CrudDB {
 
     protected function rowToConfigTableData($row) {
         $cols = $this->configTableColumns();
-        $data = ["<span class='custom-checkbox row_data_input'><input type='hidden' id='row_data_".$row['id']."' name='id' value='".json_encode($this->rowToArray($row))."'><input type='checkbox' name='options[]' value='1'></span>"];
+        $data = ["<span class='custom-checkbox row_data_input'><input type='hidden' id='row_data_".$row['id']."' value='".$row['id']."'><input type='checkbox' value='1'></span>"];
         for ($i=0; $i<count($cols); $i++) {
             $value = $cols[$i];
             $dataVal = strlen($row[$value])>50?(substr($row[$value], 0, 50)."..."):$row[$value];

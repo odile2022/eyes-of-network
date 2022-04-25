@@ -29,3 +29,10 @@ class DB {
         return new TypeEquipementDB;
     }
 }
+
+function dd($vars){
+    //echo json_encode($vars);
+    echo "dump <br><br><br>";
+    var_dump($vars);
+    die();
+}

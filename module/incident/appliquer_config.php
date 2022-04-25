@@ -13,11 +13,13 @@ require_once("./incident_header.php");
 			if($config){ ?>
 			<div class="col-lg-12" style="padding:10px;">
 				<h2>Config: <?php echo $config['nom']; ?></h2>
-				<form class="taches_json_form" method="post" action="controlleur.php?action=save_fichier_configuration">
+				<form id="appliquer_config_form" method="post" action="controlleur.php?action=appliquer_config">
 					<div class="dataTable_wrapper">
 						<fieldset class='form-fieldset' style='margin:1em 0'>
 							<legend>Liste des equipements a considerer</legend>
 							<table id="table_conf_equip" class="table table-striped datatable-eonweb-ajax table-condensed table-hover"></table>
+							<input type='hidden' name='id_fichier_config' value='<?php echo $id; ?>'>
+							<input id="id_equipements" type='hidden' name='id_equipements'>
 						</fieldset>
 					<?php
 						if($config['variables']){
@@ -25,21 +27,19 @@ require_once("./incident_header.php");
 							echo "<fieldset class='form-fieldset' style='margin:1em 0'>"; 
 							echo "<legend>Valeurs des variables</legend>"; 
 							foreach ($vars as $v){
-							?>
+					?>
 								<div class="form-group">
 									<label><?php echo $v; ?></label>
 									<input type="text" class="form-control" name='vars[<?php echo $v; ?>]' required>
 								</div>
-							<?php 
+					<?php 
 							}
-							?>
-								</fieldset>
-								<div>
-									<input type="submit" class="btn btn-success" value="Appliquer">
-								</div>
-							<?php 
 						}
 					?>
+						</fieldset>
+						<div>
+							<input type="submit" class="btn btn-success" value="Appliquer">
+						</div>
 				</div>
 				</form>
 				<?php }else{ ?>
@@ -57,7 +57,7 @@ require_once("./incident_header.php");
 
 if($config){
 
-$extraFooterTags = "<script> var dataSet =". json_encode(DB::equipement()->configTableData($id)).";".
+$extraFooterTags = "<script> var dataSet =". json_encode(DB::equipement()->configTableData($config['type_equipement'])).";".
 
 <<<EOF
  
@@ -93,6 +93,7 @@ $(document).ready(function() {
 			});
 		} 
 	});
+
 	checkbox.click(function(){
 		if(!this.checked){
 			$("#selectAll").prop("checked", false);
@@ -100,6 +101,25 @@ $(document).ready(function() {
 			$("#selectAll").prop("checked", $('.custom-checkbox input[type="checkbox"]:checked').length == $('.custom-checkbox input[type="checkbox"]').length);
 		}
 	});
+
+	$('#appliquer_config_form').submit(function(event){
+		const ids = [];
+		$('.row_data_input').each((key, val) => {
+			const checked = $(val).children('input:checked').val();
+			if(checked){
+				const id = JSON.parse($(val).children('input[type=hidden]').val());
+				ids.push(id);
+			}
+		});
+		console.log(ids);
+		if (ids.length) {
+			$('#id_equipements').val(JSON.stringify(ids));
+		}else{
+			alert("Error: Aucune valeur selectionée.");
+			event.preventDefault();
+		}
+	 });
+
 } );
 
 </script>
