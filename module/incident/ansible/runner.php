@@ -69,19 +69,42 @@ function renderAnsiblePlaybook ($template_commandes, $tasksConf) {
     return null;
 }
 
+function ansibleHostsFromEquipements($equipements){
+    $hosts = [];
+    $conf = [
+        "hosts" => [ "h1" => [ "ansible_host" => "" ] ],
+        "vars" => [ "ansible_user" => "", "ansible_ssh_pass" => ""]
+    ];
+    $i = 0;
+    foreach ($equipements as $equip) {
+        $hostConf = array_replace_recursive([], $conf);
+        $hostConf['hosts']['h1']['ansible_host'] = $equip['adresse_ip'];
+        $hostConf['vars']['ansible_user'] = $equip['ssh_user'];
+        $hostConf['vars']['ansible_ssh_pass'] = $equip['ssh_password'];
+        $hosts['equip'.$i] = $hostConf;
+        $i++;
+    }
+    return $hosts;
+}
+
 function createAndRunAnsiblePlaybook($typeEquip, $fichierConfig, $equipements, $vars)
 {
     $baseDir = "/srv/eyesofnetwork/eonweb/temp/ansible_config_".time();
     $varsFilePath = "$baseDir/vars.json";
+    $hostsFilePath = "$baseDir/hosts.json";
     $playbookFilePath = "$baseDir/playbook.yml";
     
     if(mkdir ($baseDir)){
         $playbookContent = renderAnsiblePlaybook($typeEquip['template_commandes'], json_decode($fichierConfig['commandes'], true));
+        $ansibleHost = ansibleHostsFromEquipements($equipements);
         $jsonVars = json_encode($vars);
+        $hostsVars = json_encode($ansibleHost);
+
+        file_put_contents($hostsFilePath, $hostsVars);
         file_put_contents($varsFilePath, $jsonVars);
         file_put_contents($playbookFilePath, $playbookContent);
 
-        echo json_encode([$typeEquip, $fichierConfig, $equipements, $vars]);
+        echo json_encode([$ansibleHost, $vars, $playbookContent]);
         die();
     }else{
         echo "Erreur: Echec creation du repertoire: $baseDir";

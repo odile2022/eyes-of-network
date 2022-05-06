@@ -1,5 +1,5 @@
 # ansible-playbook iosconfig.yml -i hosts
-- hosts: ROUTERS
+- hosts: all
   gather_facts: false
   connection: local
 
