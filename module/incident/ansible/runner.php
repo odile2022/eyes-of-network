@@ -114,6 +114,7 @@ function createAndRunAnsiblePlaybook($configurationDB, $typeEquip, $fichierConfi
         $config = $configurationDB->insert([
             'cmd' => $cmd,
             'fichier_config' => $fichierConfig['id'],
+            'nom_config' => $fichierConfig['nom'],
             'equipements' => json_encode($equipIDs),
             'info' => json_encode([
                 'hosts' => $hostsVars,

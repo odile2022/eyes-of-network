@@ -110,9 +110,9 @@ $(document).ready(function() {
 			title: "<span style='position: relative;left: -3px;'><input type='checkbox' id='selectAll'><label for='selectAll'></label></span>",
 			orderable: false
 		},{ 
-			title: "Date"
+			title: "Configuration"
 		},{ 
-			title: "Log d'Exécution"
+			title: "Date"
 		},{ 
 			title: "Commentaire"
 		},{ 
