@@ -78,7 +78,9 @@ function ansibleHostsFromEquipements($equipements){
     $i = 0;
     foreach ($equipements as $equip) {
         $hostConf = array_replace_recursive([], $conf);
-        $hostConf['hosts']['h1']['ansible_host'] = $equip['adresse_ip'];
+        $hostConf['hosts'] = [ 
+            "h".$i => [ "ansible_host" => $equip['adresse_ip'] ]
+        ];
         $hostConf['vars']['ansible_user'] = $equip['ssh_user'];
         $hostConf['vars']['ansible_ssh_pass'] = $equip['ssh_password'];
         $hosts['equip'.$i] = $hostConf;
@@ -87,7 +89,7 @@ function ansibleHostsFromEquipements($equipements){
     return $hosts;
 }
 
-function createAndRunAnsiblePlaybook($typeEquip, $fichierConfig, $equipements, $vars)
+function createAndRunAnsiblePlaybook($configurationDB, $typeEquip, $fichierConfig, $equipements, $vars)
 {
     $baseDir = "/srv/eyesofnetwork/eonweb/temp/ansible_config_".time();
     $varsFilePath = "$baseDir/vars.json";
@@ -104,7 +106,31 @@ function createAndRunAnsiblePlaybook($typeEquip, $fichierConfig, $equipements, $
         file_put_contents($varsFilePath, $jsonVars);
         file_put_contents($playbookFilePath, $playbookContent);
 
-        echo json_encode([$ansibleHost, $vars, $playbookContent]);
+        $equipIDs = [];
+        foreach ($equipements as $equip) {
+            $equipIDs[] = $equip['id'];
+        }
+        $cmd = 'ansible-playbook ' . $playbookFilePath . ' -i '.$hostsFilePath.' --extra-vars "@'.$varsFilePath.'"';
+        $config = $configurationDB->insert([
+            'cmd' => $cmd,
+            'fichier_config' => $fichierConfig['id'],
+            'equipements' => json_encode($equipIDs),
+            'info' => json_encode([
+                'hosts' => $hostsVars,
+                'json' => $jsonVars,
+                'playbook' => $playbookContent,
+            ]),
+        ]);
+        $result = liveExecuteCommand($cmd);
+
+        $config['commande_reussie'] = $result['exit_status']?0:1;
+        $config['log_execution'] = $result['output'];
+        unlink($hostsFilePath);
+        unlink($varsFilePath);
+        unlink($playbookFilePath);
+        rmdir($baseDir);
+        $configurationDB->update($config);
+        echo "Fin de l'operation";
         die();
     }else{
         echo "Erreur: Echec creation du repertoire: $baseDir";

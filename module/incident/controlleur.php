@@ -186,7 +186,7 @@ switch ($action) {
         ];
         if($fichierConfig && $equipements){
             $typeEquip = DB::typeEquipement()->find($fichierConfig['type_equipement']);
-            $config = createAndRunAnsiblePlaybook($typeEquip, $fichierConfig, $equipements, $vars);
+            $config = createAndRunAnsiblePlaybook(DB::configuration(), $typeEquip, $fichierConfig, $equipements, $vars);
             //echo json_encode($data);
             echo json_encode($config);
             
