@@ -101,7 +101,7 @@ require_once("./incident_header.php");
 </div>
 
 <?php
-$extraFooterTags = "<script> var dataSet =". json_encode(DB::configuration()->tableData()).";".
+$extraFooterTags = "<script> var dataSet =". json_encode(DB::equipement()->historiqueTableData()).";".
 <<<EOF
  
 $(document).ready(function() {

@@ -89,7 +89,7 @@ function ansibleHostsFromEquipements($equipements){
     return $hosts;
 }
 
-function createAndRunAnsiblePlaybook($configurationDB, $typeEquip, $fichierConfig, $equipements, $vars)
+function createAndRunAnsiblePlaybook($configurationDB, $ConfigurationEquipementDB, $typeEquip, $fichierConfig, $equipements, $vars)
 {
     $baseDir = "/srv/eyesofnetwork/eonweb/temp/ansible_config_".time();
     $varsFilePath = "$baseDir/vars.json";
@@ -106,22 +106,27 @@ function createAndRunAnsiblePlaybook($configurationDB, $typeEquip, $fichierConfi
         file_put_contents($varsFilePath, $jsonVars);
         file_put_contents($playbookFilePath, $playbookContent);
 
-        $equipIDs = [];
-        foreach ($equipements as $equip) {
-            $equipIDs[] = $equip['id'];
-        }
         $cmd = 'ansible-playbook ' . $playbookFilePath . ' -i '.$hostsFilePath.' --extra-vars "@'.$varsFilePath.'"';
         $config = $configurationDB->insert([
             'cmd' => $cmd,
             'fichier_config' => $fichierConfig['id'],
             'nom_config' => $fichierConfig['nom'],
-            'equipements' => json_encode($equipIDs),
             'info' => json_encode([
                 'hosts' => $hostsVars,
                 'json' => $jsonVars,
                 'playbook' => $playbookContent,
             ]),
         ]);
+        
+        header('Location: /module/incident/configurations_details.php?id='.$config['id']);
+        
+        foreach ($equipements as $equip) {
+            $ConfigurationEquipementDB->insert([
+                'id_configuration' => $config['id'],
+                'id_equipement' => $equip['id'],
+            ]);
+        }
+
         $result = liveExecuteCommand($cmd);
 
         $config['commande_reussie'] = $result['exit_status']?0:1;
@@ -131,11 +136,9 @@ function createAndRunAnsiblePlaybook($configurationDB, $typeEquip, $fichierConfi
         unlink($playbookFilePath);
         rmdir($baseDir);
         $configurationDB->update($config);
-        echo "Fin de l'operation";
-        die();
+        return $config;
     }else{
-        echo "Erreur: Echec creation du repertoire: $baseDir";
-        die();
+        return null;
     }
 }
 

@@ -186,16 +186,14 @@ switch ($action) {
         ];
         if($fichierConfig && $equipements){
             $typeEquip = DB::typeEquipement()->find($fichierConfig['type_equipement']);
-            $config = createAndRunAnsiblePlaybook(DB::configuration(), $typeEquip, $fichierConfig, $equipements, $vars);
-            //echo json_encode($data);
-            echo json_encode($config);
-            
-            header('Location: /module/incident/configurations_details.php?id=0');
-            die();
-        }else{
-            require_once("./page_erreurs.php'");
-            die();
+            $config = createAndRunAnsiblePlaybook(DB::configuration(), DB::configurationEquipement(), $typeEquip, $fichierConfig, $equipements, $vars);
+            if(!is_null($config)){
+                // header('Location: /module/incident/configurations_details.php?id='.$config['id']);
+                die();
+            }
         }
+        require_once("./page_erreurs.php'");
+        die();
         break;
     default:
         # code...

@@ -5,12 +5,17 @@ require_once "./db/EquipementDB.php";
 require_once "./db/FichierConfigDB.php";
 require_once "./db/PanneDB.php";
 require_once "./db/TypeEquipementDB.php";
+require_once "./db/ConfigurationEquipementDB.php";
 
 
 class DB {
 
     public static function configuration(){
         return new ConfigurationDB;
+    }
+
+    public static function configurationEquipement(){
+        return new ConfigurationEquipementDB;
     }
 
     public static function equipement(){
