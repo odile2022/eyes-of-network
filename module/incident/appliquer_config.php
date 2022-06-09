@@ -38,7 +38,15 @@ require_once("./incident_header.php");
 					?>
 						</fieldset>
 						<div>
-							<input type="submit" class="btn btn-success" value="Appliquer">
+							<input id="appliquer-conf-submit-btn" type="submit" class="btn btn-success" value="Appliquer">
+							<button id="appliquer-conf-loading-btn" class="btn btn-success" style="padding: 0 12px 6px;visibility: hidden;">
+								<div class="lds-spinner" style="position: relative;top: 5px;">
+									<div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div>
+								</div>
+								<span style="display: inline-block;">
+									En cours d'execution
+								</span>
+							</button>
 						</div>
 				</div>
 				</form>
@@ -60,7 +68,12 @@ if($config){
 $extraFooterTags = "<script> var dataSet =". json_encode(DB::equipement()->configTableData($config['type_equipement'])).";".
 
 <<<EOF
- 
+$( "#appliquer-conf-submit-btn" ).click(function() {
+	$( this).css("display", "none");
+	$( "#appliquer-conf-loading-btn" ).css("visibility", "visible");
+	
+});
+
 $(document).ready(function() {
     $('#table_conf_equip').DataTable( {
         data: dataSet,

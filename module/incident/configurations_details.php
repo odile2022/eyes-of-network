@@ -17,9 +17,13 @@ require_once("./incident_header.php");
 			<div class="col-lg-12" style="padding:10px;">
 				<h2>Config: <?php echo $config['nom_config']; ?></h2>
 				<h3>Date: <b><?php echo $config['date']; ?></b> </h3>
-				<h3>Appliquée: <?php if ($config['commande_reussie']==1)
-				echo 'Oui'; 
-				else echo 'Non'; ?></h3>
+				<h3>Appliquée: <?php 
+				if ($config['commande_reussie']==2)
+					echo 'En cours d\'execution'; 
+				else if ($config['commande_reussie']==1)
+					echo 'Oui'; 
+				else 
+					echo 'Non'; ?></h3>
 				
 				<fieldset class='form-fieldset' style='margin:1em 0'>
 					<legend>Liste des equipements concernes</legend>

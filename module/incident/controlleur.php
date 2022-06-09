@@ -188,7 +188,8 @@ switch ($action) {
             $typeEquip = DB::typeEquipement()->find($fichierConfig['type_equipement']);
             $config = createAndRunAnsiblePlaybook(DB::configuration(), DB::configurationEquipement(), $typeEquip, $fichierConfig, $equipements, $vars);
             if(!is_null($config)){
-                // header('Location: /module/incident/configurations_details.php?id='.$config['id']);
+                //header('Location: /module/incident/configurations_details.php?id='.$config['id']);
+                echo ' <meta http-equiv="refresh" content="0;url=/module/incident/configurations_details.php?id='.$config['id'].'">';
                 die();
             }
         }

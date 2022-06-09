@@ -110,6 +110,7 @@ function createAndRunAnsiblePlaybook($configurationDB, $ConfigurationEquipementD
         $config = $configurationDB->insert([
             'cmd' => $cmd,
             'fichier_config' => $fichierConfig['id'],
+            'commande_reussie' => 2, // En cours d'execution
             'nom_config' => $fichierConfig['nom'],
             'info' => json_encode([
                 'hosts' => $hostsVars,
@@ -118,7 +119,6 @@ function createAndRunAnsiblePlaybook($configurationDB, $ConfigurationEquipementD
             ]),
         ]);
         
-        header('Location: /module/incident/configurations_details.php?id='.$config['id']);
         
         foreach ($equipements as $equip) {
             $ConfigurationEquipementDB->insert([
@@ -131,10 +131,14 @@ function createAndRunAnsiblePlaybook($configurationDB, $ConfigurationEquipementD
 
         $config['commande_reussie'] = $result['exit_status']?0:1;
         $config['log_execution'] = $result['output'];
+        /* 
+        l'execution du playbook est asynchrone,
+        la suppression des fichier risque de faire echouer la commande d'execution du playbook
         unlink($hostsFilePath);
         unlink($varsFilePath);
         unlink($playbookFilePath);
         rmdir($baseDir);
+        //*/
         $configurationDB->update($config);
         return $config;
     }else{
