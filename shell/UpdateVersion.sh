@@ -2,6 +2,8 @@
 #\cp -fR -a /srv/eyesofnetwork/eonweb.dev/. /srv/eyesofnetwork/eonweb
 #chmod -R 777 /srv/eyesofnetwork/eonweb
 
+#### dos2unix ./UpdateVersion.sh 
+
 cp -fR -a /srv/eyesofnetwork/eonweb.dev/module/incident/. /srv/eyesofnetwork/eonweb/module/incident
 cp -fR -a /srv/eyesofnetwork/eonweb.dev/include/. /srv/eyesofnetwork/eonweb/include
 cp -fR -a /srv/eyesofnetwork/eonweb.dev/ansible/. /srv/eyesofnetwork/eonweb/ansible
