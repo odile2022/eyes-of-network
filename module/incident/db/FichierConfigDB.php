@@ -16,10 +16,27 @@ class FichierConfigDB extends CrudDB {
          ];
      }
 
+
+    public function tableData() {
+        $stmt = $this->executeQuery("SELECT c.*, t.nom nom_equipement FROM ridb.ri_fichier_config c join ridb.ri_type_equipement t on c.type_equipement = t.id;");
+        $result =[];
+        while ($row = $stmt->fetch()) {
+            $result[] = $this->rowToTableData($row);
+        }
+        return $result;
+    }
+
      protected function rowToTableData($row) {
-        $cols = $this->tableColumns();
+        $cols = [
+            'nom',
+            'commandes',
+            'variables',
+            'nom_equipement',
+            'type_equipement',
+            // 'id',
+        ];
         $data = ["<span class='custom-checkbox row_data_input'><input type='hidden' id='row_data_".$row['id']."' name='id' value='".json_encode($this->rowToArray($row))."'><input type='checkbox' name='options[]' value='1'></span>"];
-        for ($i=0; $i<count($cols); $i++) {
+        for ($i=0; $i<count($cols)-1; $i++) {
             $value = $cols[$i];
             $dataVal = strlen($row[$value])>50?(substr($row[$value], 0, 50)."..."):$row[$value];
             $data[] = $dataVal;

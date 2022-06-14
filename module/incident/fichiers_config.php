@@ -42,7 +42,14 @@ require_once("./incident_header.php");
 							</div>
 							<div class="form-group">
 								<label>Type_equipement</label>
-								<input type="text" class="form-control" name='type_equipement' required>
+								<select class="form-control" name="type_equipement" id="cars">
+								<?php
+									$types = DB::typeEquipement()->all();
+									foreach ($types as $key => $val) {
+										echo "<option value='".$val['id']."'>".$val['nom']."</option>";
+									}
+								?>
+								</select>
 							</div>
 							<fieldset class="form-fieldset">
 								<legend>
@@ -90,7 +97,14 @@ require_once("./incident_header.php");
 							</div>	
 							<div class="form-group">
 								<label>Type_equipement</label>
-								<input type="text" class="form-control" name='type_equipement' required>
+								<select class="form-control" name="type_equipement" id="cars">
+								<?php
+									$types = DB::typeEquipement()->all();
+									foreach ($types as $key => $val) {
+										echo "<option value='".$val['id']."'>".$val['nom']."</option>";
+									}
+								?>
+								</select>
 							</div>			
 						</div>
 						<div class="modal-footer">
@@ -144,7 +158,7 @@ $(document).ready(function() {
 		},{ 
 			title: "variables"
 		},{ 
-			title: "Type_equipement"
+			title: "Nom equipement"
 		},{ 
 			title: "Actions",
 			orderable: false
@@ -180,7 +194,7 @@ function editItem(btn, id){
 	const item = JSON.parse($('#row_data_'+id).val());
 	$('#editFichierConfigModal input[name=id]').val(id);
 	$('#editFichierConfigModal input[name=nom]').val(item.nom);
-	$('#editFichierConfigModal input[name=type_equipement]').val(item.type_equipement);
+	$('#editFichierConfigModal select[name=type_equipement]').val(item.type_equipement);
 	$('#editFichierConfigModal input[name=variables]').val(item.variables);
 	$('#editFichierConfigModal input[name=commandes]').val(item.commandes);
 	if(item.commandes){
