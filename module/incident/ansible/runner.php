@@ -56,7 +56,8 @@ function renderAnsiblePlaybook ($template_commandes, $tasksConf) {
         foreach ($tasksConf as $conf) {
             $t = $tplTask;
             $t = str_replace('${task_name}', $conf['name'], $t);
-            foreach ($conf['commands'] as $cmd) {
+            $commands = explode(PHP_EOL , $conf['commands']);
+            foreach ($commands as $cmd) {
                 $commandReplace = str_replace('${command[]}', $cmd, $commandPlaceholder) . PHP_EOL . $commandPlaceholder;
                 $t = str_replace($commandPlaceholder, $commandReplace, $t);
             }
