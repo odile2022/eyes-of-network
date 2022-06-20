@@ -23,7 +23,7 @@ require_once("./incident_header.php");
 	</div> 
 	<!-- Add Modal HTML -->
 	<div id="addFichierConfigModal" class="modal fade">
-			<div class="modal-dialog">
+			<div class="modal-dialog modal-lg">
 				<div class="modal-content">
 					<form class="taches_json_form" method="post" action="controlleur.php?action=save_fichier_configuration">
 						<div class="modal-header">						
@@ -77,7 +77,7 @@ require_once("./incident_header.php");
 		</div>
 		<!-- Edit Modal HTML -->
 		<div id="editFichierConfigModal" class="modal fade">
-			<div class="modal-dialog">
+			<div class="modal-dialog modal-lg">
 				<div class="modal-content">
 					<form class="taches_json_form" method="post" action="controlleur.php?action=edit_fichier_configuration">
 						<div class="modal-header">						
@@ -118,7 +118,7 @@ require_once("./incident_header.php");
 		</div>
 		<!-- Delete Modal HTML -->
 		<div id="deleteFichierConfigModal" class="modal fade">
-			<div class="modal-dialog">
+			<div class="modal-dialog modal-lg">
 				<div class="modal-content">
 				<form method="post" action="controlleur.php?action=delete_fichier_configuration">
 						<div class="modal-header">						

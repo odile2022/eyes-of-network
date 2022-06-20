@@ -14,5 +14,7 @@ chmod -R 777 /srv/eyesofnetwork/eonweb/header.php
 chmod -R 777 /srv/eyesofnetwork/eonweb/module/incident
 chmod -R 777 /srv/eyesofnetwork/eonweb/include
 
+# cp -fR -a /srv/eyesofnetwork/eonweb/temp/. /srv/eyesofnetwork/eonweb.dev/shell/temp/
+# rm -fR -a /srv/eyesofnetwork/eonweb/temp/
 
 echo 'Update completed'

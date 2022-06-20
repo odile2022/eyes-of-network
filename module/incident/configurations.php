@@ -24,7 +24,7 @@ require_once("./incident_header.php");
 	<!-- Add Modal HTML -->
 	<!--
 	<div id="addEmployeeModal" class="modal fade">
-			<div class="modal-dialog">
+			<div class="modal-dialog modal-lg">
 				<div class="modal-content">
 					<form method="post" action="controlleur.php?action=save_configuration">
 						<div class="modal-header">						
@@ -52,7 +52,7 @@ require_once("./incident_header.php");
 		-->
 		<!-- Edit Modal HTML -->
 		<div id="editEmployeeModal" class="modal fade">
-			<div class="modal-dialog">
+			<div class="modal-dialog modal-lg">
 				<div class="modal-content">
 					<form method="post" action="controlleur.php?action=edit_configuration">
 						<div class="modal-header">						
@@ -77,7 +77,7 @@ require_once("./incident_header.php");
 		</div>
 		<!-- Delete Modal HTML -->
 		<div id="deleteEmployeeModal" class="modal fade">
-			<div class="modal-dialog">
+			<div class="modal-dialog modal-lg">
 				<div class="modal-content">
 				<form method="post" action="controlleur.php?action=delete_configuration">
 						<div class="modal-header">						
