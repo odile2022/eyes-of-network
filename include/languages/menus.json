@@ -394,6 +394,12 @@
                     "name":"Configuration",
                     "url":"/module/incident/configurations.php?q=active",
                     "target":"main"
+                },
+                {
+                    "name":"ViewVC",
+                    "url":"/viewvc",
+                    "target":"main",
+                    "blank": true
                 }
             ]
         },

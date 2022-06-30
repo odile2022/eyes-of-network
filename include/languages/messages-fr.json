@@ -1,6 +1,6 @@
 {
-	"menu.tab.resolve_panne": "Résolution d'incidents",
-	"menu.link.resolve_panne": "Résolution d'incidents",
+	"menu.tab.resolve_panne": "Gestion des configurations",
+	"menu.link.resolve_panne": "Gestion des configurations",
 	"label.home_resolve.expert": "Notre Système Expert",
 	"label.home_resolve.formulaire": "Formulaire de diagnostic",
 	"label.home_resolve.page01": "Résolution de panne - Page 01",

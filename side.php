@@ -190,7 +190,7 @@ if( strpos($_SERVER["PHP_SELF"], "/module/module_frame") !== false ){
 										if($item["target"]=="_blank") { $url=$url.'" target="_blank'; }
 										elseif($item["target"]=="frame") { $url=$path_frame.urlencode($item["url"]); }
 							?>
-							<li><a href="<?php echo $url; ?>"><?php echo getLabel($item["name"]); ?></a></li>
+							<li><a href="<?php echo $url; ?>" <?php echo isset($item["blank"])?"target='_blank'":""; ?>><?php echo getLabel($item["name"]); ?></a></li>
 							<?php
 									}
 								// we have subtabas

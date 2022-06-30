@@ -1,6 +1,6 @@
 {
-	"menu.tab.resolve_panne": "Resolution of incidents",
-	"menu.link.resolve_panne": "Resolution of incidents",
+	"menu.tab.resolve_panne": "Configuration management",
+	"menu.link.resolve_panne": "Configuration management",
 	"label.home_resolve.expert": "Our Expert System",
 	"label.home_resolve.formulaire": "Form diagnosis",
 	"action.ack": "Acknowledge",
